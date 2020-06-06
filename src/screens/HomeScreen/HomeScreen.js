@@ -1,14 +1,32 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { Fontisto } from "@expo/vector-icons";
 
-const HomeScreen = () => {
+function HomeScreen({ navigation }) {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button title="Update count" />,
+    });
+  }, [navigation]);
+
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.container}>
+      <Button
+        title="Electronics"
+        onPress={() => navigation.navigate("Electronics")}
+      />
+      <Button title="Books" onPress={() => navigation.navigate("Book")} />
     </View>
   );
-};
+}
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+});

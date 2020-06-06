@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeScreen } from "./../screens";
+import { HomeScreen, OrderScreen, ProfileScreen } from "./../screens";
 import {
   MaterialIcons,
   FontAwesome,
@@ -28,7 +28,7 @@ const HomeNavigator = () => {
       />
       <Tab.Screen
         name="Order"
-        component={HomeScreen}
+        component={OrderScreen}
         options={{
           tabBarLabel: "Order",
           tabBarIcon: ({ color, size }) => (
@@ -38,9 +38,9 @@ const HomeNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
-          tabBarLabel: "Prodile",
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="user" color={color} size={size} />
           ),
