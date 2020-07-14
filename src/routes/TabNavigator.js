@@ -7,7 +7,7 @@ import {
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
-const HomeNavigator = () => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -50,4 +50,4 @@ const HomeNavigator = () => {
   );
 };
 
-export default HomeNavigator;
+export default TabNavigator;

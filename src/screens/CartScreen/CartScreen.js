@@ -1,7 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Products from "../../common/Products";
+import Products from "../../components/Products";
+// import LottieView from "lottie-react-native";
 import { connect } from "react-redux";
+import { removeItemFromCart } from "../../redux";
 
 const CartScreen = (props) => {
   return (
@@ -9,7 +11,17 @@ const CartScreen = (props) => {
       {props.cartItem.length > 0 ? (
         <Products products={props.cartItem} onPress={props.removeFromCart} />
       ) : (
-        <Text>No items in your cart</Text>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          {/* <LottieView
+            style={{
+              width: "100%",
+            }}
+            source={require("../../../assets/empty_cart.json")}
+            autoPlay
+            loop
+          /> */}
+          <Text>Empty shopping cart</Text>
+        </View>
       )}
     </View>
   );
@@ -17,7 +29,6 @@ const CartScreen = (props) => {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  console.log("-----------------------");
   return {
     cartItem: state,
   };
@@ -25,7 +36,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     removeFromCart: (product) => {
-      dispatch({ type: "REMOVE_FROM_CART", payload: product });
+      dispatch(removeItemFromCart(product));
     },
   };
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
-import Products from "../common/Products";
+import Products from "../components/Products";
 import { books } from "./../Data";
 import { connect } from "react-redux";
 const BookScreen = (props) => {

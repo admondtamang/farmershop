@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/0b497c3d-d3bf-4ef6-b851-cd7d440adb6f/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/farmershop",
+    "appService.deploySubpath": "web-build"
+}
