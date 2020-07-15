@@ -40,11 +40,11 @@ const { width: screenWidth } = Dimensions.get("window");
 
 const MyCarousel = (props) => {
   const [entries, setEntries] = useState([]);
-  //   const carouselRef = useRef(null);
+  const carouselRef = useRef(null);
 
-  //   const goForward = () => {
-  //     carouselRef.current.snapToNext();
-  //   };
+  const goForward = () => {
+    carouselRef.current.snapToNext();
+  };
 
   useEffect(() => {
     setEntries(ENTRIES1);
@@ -68,12 +68,9 @@ const MyCarousel = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* <TouchableOpacity onPress={goForward}>
-        <Text>go to next slide</Text>
-      </TouchableOpacity> */}
+    <TouchableOpacity style={styles.container} onPress={goForward}>
       <Carousel
-        // ref={carouselRef}
+        ref={carouselRef}
         sliderWidth={screenWidth}
         sliderHeight={screenWidth}
         itemWidth={screenWidth - 60}
@@ -81,7 +78,7 @@ const MyCarousel = (props) => {
         renderItem={renderItem}
         hasParallaxImages={true}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 

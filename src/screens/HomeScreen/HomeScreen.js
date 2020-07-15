@@ -8,49 +8,48 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import { connect, useSelector, useDispatch } from "react-redux";
 
 import MyCarousel from "../../components/Carousel";
 import Search from "../../components/Search";
 import Product from "../../components/Product";
 import { electronics } from "../../Data";
 import ItemTitle from "../../components/ItemTitle";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../redux";
 
 function HomeScreen({ navigation, props }) {
   const dispatch = useDispatch();
+
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView style={styles.container}>
         <Search />
-        {/* <MyCarousel /> */}
+        <MyCarousel />
 
         <ItemTitle name="Vegetables" />
-        {/* <FlatList
+
+        <FlatList
+          style={{ margin: 20 }}
           numColumns={3}
           keyExtractor={(item) => item.id.toString()}
           data={electronics}
-          renderItem={Product}
-          // extraData={props.addItemToCart}
-        /> */}
-        <Button
-          title="Electronics"
-          onPress={() => navigation.navigate("Electronics")}
+          renderItem={({ item }) => (
+            <Product
+              item={item}
+              onDispatch={() => dispatch(addItemToCart(item))}
+            />
+          )}
         />
-        <Button title="Books" onPress={() => navigation.navigate("Book")} />
+        {/* 
+        {electronics.map((item) => (
+          <Product item={item} />
+        ))} */}
       </ScrollView>
     </View>
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addItemToCart: (product) => {
-      dispatch({ type: "ADD_TO_CART", payload: product });
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {

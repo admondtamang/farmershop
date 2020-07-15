@@ -17,6 +17,21 @@ export default function LoginScreen({ navigation }) {
   const [borderColor, setBorderColor] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const value = await AsyncStorage.getItem("token");
+        if (value !== null) {
+          navigation.navigate("Home");
+          console.log("token is here", value);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getToken();
+  }, []);
+
   const onFocusInput = (value) => {
     setBorderColor(value);
   };
@@ -32,6 +47,7 @@ export default function LoginScreen({ navigation }) {
       }
       `,
       };
+
       const {
         data: {
           data: {
@@ -39,24 +55,12 @@ export default function LoginScreen({ navigation }) {
           },
         },
       } = await axios.post("http://localhost:3000/graphql", reqBody);
-      console.log(token);
-
-      await AsyncStorage.setItem("token", value);
-    } catch (e) {
-      console.log(e);
-    }
-    setIsLoggedIn(!isLoggedIn);
-  };
-
-  const getToken = async () => {
-    try {
-      const value = await AsyncStorage.getItem("token");
-      if (value !== null) navigation.navigate("Home");
+      setIsLoggedIn(!isLoggedIn);
+      await AsyncStorage.setItem("token", token);
     } catch (e) {
       console.log(e);
     }
   };
-  getToken();
 
   if (isLoggedIn) navigation.navigate("Home");
 

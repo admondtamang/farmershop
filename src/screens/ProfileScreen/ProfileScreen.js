@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Button, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Button,
+  SafeAreaView,
+  AsyncStorage,
+} from "react-native";
 import {
   Avatar,
   Title,
@@ -9,8 +15,11 @@ import {
 } from "react-native-paper";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
+
   const logout = async () => {
     try {
       AsyncStorage.removeItem("token");
@@ -40,9 +49,9 @@ const ProfileScreen = ({ navigation }) => {
                 },
               ]}
             >
-              John Doe
+              Admond Tamang
             </Title>
-            <Caption style={styles.caption}>@j_doe</Caption>
+            <Caption style={styles.caption}>@admondtamang</Caption>
           </View>
         </View>
       </View>
@@ -51,19 +60,19 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.row}>
           <Icon name="map-marker-radius" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            Kolkata, India
+            Nuwakot, Nepal
           </Text>
         </View>
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            +91-900000009
+            +977 9880199302
           </Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            john_doe@email.com
+            admondtamang@gmail.com
           </Text>
         </View>
       </View>

@@ -9,24 +9,22 @@ const Root = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(!isLoading);
-      // setUser({});
-    }, 500);
+    setIsLoading(!isLoading);
+    // setUser({});
   }, []);
 
   return (
     <NavigationContainer>
       {isLoading ? (
-        <Loading style={{flex:1,justifyContent:"center"}}/>
-        // <Lottie
-        //   source={require("../assets/loading.json")}
-        //   height
-        //   width
-        //   autoPlay
-        //   loop
-        // />
-      ) : user ? (
+        <Loading style={{ flex: 1, justifyContent: "center" }} />
+      ) : // <Lottie
+      //   source={require("../assets/loading.json")}
+      //   height
+      //   width
+      //   autoPlay
+      //   loop
+      // />
+      user ? (
         <StackNavigator />
       ) : (
         <AuthStack />

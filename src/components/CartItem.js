@@ -1,8 +1,11 @@
 import React from "react";
-import { View, Image } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Card, Title, Paragraph, Button, Text } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux";
 
-export default function Product({ item, onDispatch }) {
+export default function CartItem({ item, onDispatch }) {
+  // const dispatch = useDispatch();
   return (
     <View
       style={{ width: 130, justifyContent: "center", alignItems: "center" }}

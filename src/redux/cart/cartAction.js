@@ -7,7 +7,7 @@ export const addItemToCart = (product) => {
   };
 };
 
-export const removeItemFromCart = () => {
+export const removeItemFromCart = (product) => {
   return {
     type: REMOVE_ITEM_FROM_CART,
     payload: product,

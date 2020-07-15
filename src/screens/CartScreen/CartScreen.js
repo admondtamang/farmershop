@@ -1,15 +1,31 @@
-import React from "react";
-import { View, Text } from "react-native";
-import Products from "../../components/Products";
+import React, { useState } from "react";
+import { View, Text, FlatList } from "react-native";
+import Product from "../../components/Product";
 // import LottieView from "lottie-react-native";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart } from "../../redux";
 
-const CartScreen = (props) => {
+export default function CartScreen(props) {
+  const cartItem = useSelector((state) => state);
+  const dispatch = useDispatch();
   return (
     <View>
-      {props.cartItem.length > 0 ? (
-        <Products products={props.cartItem} onPress={props.removeFromCart} />
+      {console.log("cart item", cartItem)}
+      {cartItem.length > 0 ? (
+        <FlatList
+          style={{ margin: 20 }}
+          numColumns={3}
+          keyExtractor={(item) => item.id.toString()}
+          data={cartItem}
+          renderItem={({ item }) => (
+            <Product
+              item={item}
+              onDispatch={() => {
+                dispatch(removeItemFromCart(item));
+              }}
+            />
+          )}
+        />
       ) : (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           {/* <LottieView
@@ -25,19 +41,17 @@ const CartScreen = (props) => {
       )}
     </View>
   );
-};
+}
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    cartItem: state,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    removeFromCart: (product) => {
-      dispatch(removeItemFromCart(product));
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);
+// const mapStateToProps = (state) => {
+//   console.log(state);
+//   return {
+//     cartItem: state,
+//   };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     removeFromCart: dispatch(removeItemFromCart(product)),
+//   };
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

@@ -1,10 +1,7 @@
 import React from "react";
-import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./TabNavigator";
 import ShoppingCartIcon from "../components/ShoppingCartIcon";
-import ElectronicScreen from "./../screens/ElectronicScreen";
-import BookScreen from "./../screens/BookScreen";
 import { CartScreen } from "../screens";
 
 const Stack = createStackNavigator();
@@ -44,8 +41,6 @@ export default function StackNavigator() {
           headerRight: null,
         }}
       />
-      <Stack.Screen name="Electronics" component={ElectronicScreen} />
-      <Stack.Screen name="Book" component={BookScreen} />
     </Stack.Navigator>
   );
 }
