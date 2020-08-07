@@ -1,0 +1,7 @@
+{
+  "env": {
+    "DB_URL": "mongodb://localhost/farmershop",
+    "JWT_SECRET": "iuwbgu9bg98whwiv9wg98wghne908hgoin",
+    "PORT": "3000"
+  }
+}
