@@ -1,40 +1,80 @@
-import React, { useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import BottomSheet from "reanimated-bottom-sheet";
-import Animated from "react-native-reanimated";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
+import { TextInput, Button } from "react-native-paper";
+import axios from "axios";
 
-const SignupScreen = () => {
-  const buttonSheetRef = useRef();
-  const fall = new Animated.Value(1);
+const SignupScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async () => {
+    console.log("EMail and password", email + password);
+    try {
+      const reqBody = {
+        query: `
+        mutation{
+          createUser(userInput:{email:"${email}" password:"${password}"}){
+            _id
+            email
+            password
+          }
+        }
+      `,
+      };
 
-  const renderContent = () => (
-    <View>
-      <Text>Hello</Text>
-    </View>
-  );
-  const renderHeader = () => (
-    <View style={styles.header}>
-      <View style={styles.panelHeader}>
-        <View style={styles.panelHandle} />
-      </View>
-    </View>
-  );
-
+      await axios.post("http://localhost:3000/graphql", reqBody);
+      // ToastAndroid.show("Hi I am Simple Toast", ToastAndroid.SHORT);
+      navigation.navigate("Login");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => buttonSheetRef.current.snapTo(1)}>
-        <Text style={{ fontWeight: "bold", color: "#3465d9" }}>Sign Up</Text>
-      </TouchableOpacity>
-
-      <BottomSheet
-        ref={buttonSheetRef}
-        initialSnap={2}
-        callbackNode={fall}
-        enabledGestureInteraction={true}
-        snapPoints={[450, 300, 0]}
-        renderContent={renderContent}
-        renderHeader={renderHeader}
+      <Text style={styles.title}>SignUp</Text>
+      <Text style={styles.text}>Enter valid Email and Password</Text>
+      <TextInput
+        label="Email"
+        mode="outlined"
+        value={email}
+        style={styles.section}
+        onChangeText={(email) => setEmail(email)}
       />
+      <TextInput
+        style={styles.section}
+        label="Password"
+        mode="outlined"
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+      />
+      {/* <TextInput
+        style={styles.section}
+        label="Phone"
+        mode="outlined"
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+      /> */}
+
+      <View style={styles.haveAccount}>
+        <Text
+          style={{
+            color: "gray",
+          }}
+        >
+          Already have an account?{" "}
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={{ fontWeight: "bold", color: "#3465d9" }}>Login</Text>
+        </TouchableOpacity>
+      </View>
+      <Button mode="contained" style={styles.section} onPress={handleSubmit}>
+        Submit
+      </Button>
     </View>
   );
 };
@@ -42,20 +82,28 @@ const SignupScreen = () => {
 export default SignupScreen;
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#FFFFFF",
-    paddingTop: 20,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 38,
+    backgroundColor: "white",
+    paddingVertical: 100,
   },
-  panelHeader: {
-    alignItems: "center",
+  title: {
+    color: "#3465d9",
+    fontWeight: "bold",
+    fontSize: 30,
   },
-  panelHeader: {
-    width: 40,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#000040",
-    marginBottom: 10,
+  text: {
+    color: "gray",
+    marginBottom: 20,
+  },
+  section: {
+    marginTop: 10,
+  },
+  haveAccount: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
   },
 });

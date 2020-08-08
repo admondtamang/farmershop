@@ -167,8 +167,12 @@ export default function LoginScreen({ navigation }) {
         >
           Don't have an account?{" "}
         </Text>
-
-        <SignupScreen />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("SignUp")}
+          style={{ alignSelf: "stretch", alignItems: "center" }}
+        >
+          <Text style={{ fontWeight: "bold", color: "#3465d9" }}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

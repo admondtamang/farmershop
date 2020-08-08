@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Button,
-  SafeAreaView,
-  AsyncStorage,
-} from "react-native";
+import { StyleSheet, View, SafeAreaView, AsyncStorage } from "react-native";
 import {
   Avatar,
+  Button,
   Title,
   Caption,
   Text,
@@ -75,8 +70,11 @@ const ProfileScreen = () => {
             admondtamang@gmail.com
           </Text>
         </View>
+        <Button mode="contained" style={styles.section} onPress={logout}>
+          Logout
+        </Button>
+        {/* <Button title="Logout" onPress={logout} /> */}
       </View>
-      <Button title="Logout" onPress={logout} />
     </SafeAreaView>
   );
 };

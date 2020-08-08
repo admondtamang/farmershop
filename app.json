@@ -2,7 +2,11 @@
   "expo": {
     "name": "farmershop",
     "slug": "definatelyforfarmers",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,7 +18,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-9997613154929108~9572541681"

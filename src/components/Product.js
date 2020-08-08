@@ -9,7 +9,7 @@ export default function Product({ item, onDispatch }) {
     >
       <Image
         style={{ width: 120, height: 120, marginBottom: 5, borderRadius: 10 }}
-        source={require(`../../assets/images/${item.src}`)}
+        source={{ uri: `../../assets/images/${item.src}` }}
       />
       <Text>{item.name}</Text>
       <View
