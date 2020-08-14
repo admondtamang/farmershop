@@ -11,29 +11,29 @@ import {
 
 const ENTRIES1 = [
   {
-    title: "Beautiful and dramatic Antelope Canyon",
+    title: "Biyard",
     subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
-    illustration: "https://i.imgur.com/UYiroysl.jpg",
+    illustration: "https://imgur.com/47NrpDQ.jpg",
   },
   {
     title: "Earlier this morning, NYC",
     subtitle: "Lorem ipsum dolor sit amet",
-    illustration: "https://i.imgur.com/UPrs1EWl.jpg",
+    illustration: "https://imgur.com/aEsf5Gj.jpg",
   },
   {
     title: "White Pocket Sunset",
     subtitle: "Lorem ipsum dolor sit amet et nuncat ",
-    illustration: "https://i.imgur.com/MABUbpDl.jpg",
+    illustration: "https://imgur.com/LDl9Aki.jpg",
   },
   {
     title: "Acrocorinth, Greece",
     subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
-    illustration: "https://i.imgur.com/KZsmUi2l.jpg",
+    illustration: "https://imgur.com/tH30Ekv.jpg",
   },
   {
     title: "The lone tree, majestic landscape of New Zealand",
     subtitle: "Lorem ipsum dolor sit amet",
-    illustration: "https://i.imgur.com/2nCt3Sbl.jpg",
+    illustration: "https://imgur.com/whdyG3i.jpg",
   },
 ];
 const { width: screenWidth } = Dimensions.get("window");
@@ -102,8 +102,11 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: "cover",
+    width: screenWidth - 60,
+    height: screenWidth - 60,
   },
   title: {
     fontWeight: "bold",
+    color: "grey",
   },
 });

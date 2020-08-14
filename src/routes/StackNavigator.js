@@ -2,8 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./TabNavigator";
 import ShoppingCartIcon from "../components/ShoppingCartIcon";
-import { CartScreen } from "../screens";
-
+import { CartScreen, ProductScreen } from "../screens";
 const Stack = createStackNavigator();
 
 function getHeaderTitle(route) {
@@ -41,6 +40,7 @@ export default function StackNavigator() {
           headerRight: null,
         }}
       />
+      <Stack.Screen name="ProductScreen" component={ProductScreen} />
     </Stack.Navigator>
   );
 }

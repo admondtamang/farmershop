@@ -35,6 +35,7 @@ function HomeScreen({ navigation, props }) {
           data={electronics}
           renderItem={({ item }) => (
             <Product
+              navigation={navigation}
               item={item}
               onDispatch={() => dispatch(addItemToCart(item))}
             />

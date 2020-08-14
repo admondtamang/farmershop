@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Order"
       tabBarOptions={{
         activeTintColor: "tomato",
         inactiveTintColor: "gray",
