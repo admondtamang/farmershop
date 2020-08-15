@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../../models/user";
+import Product from "../../models/product";
 import jwt from "jsonwebtoken";
 const root = {
   createUser: async (args) => {
@@ -23,7 +24,29 @@ const root = {
   },
   createProduct: async (args) => {
     try {
-    } catch {}
+      const product = new Product({
+        name: args.productInput.name,
+        price: args.productInput.price,
+        quantity: args.productInput.quantity,
+        weight: args.productInput.weight,
+        description: args.productInput.description,
+        type: "product",
+      });
+      const result = await product.save();
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  },
+  me: async (req) => {
+    console.log(req);
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated!");
+    }
+    const user = User.findById(req.userId);
+    console.log(user);
+    return { email };
+    next();
   },
   login: async ({ email, password }) => {
     const user = await User.findOne({ email: email });
@@ -35,7 +58,7 @@ const root = {
       throw new Error("Password incorrect");
     }
 
-    const token = jwt.sign({ userId: user.id }, "SECERETKEY");
+    const token = jwt.sign({ userId: user.id }, process.env.SECRET);
     return { userId: user.id, token: token };
   },
 };

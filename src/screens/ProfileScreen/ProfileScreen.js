@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, SafeAreaView, AsyncStorage } from "react-native";
 import {
   Avatar,
@@ -8,12 +8,44 @@ import {
   Text,
   TouchableRipple,
 } from "react-native-paper";
+import axios from "axios";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  useEffect(() => {
+    const profile = async () => {
+      try {
+        const reqBody = {
+          query: `
+        query{
+          me{
+            email,
+           password
+         } 
+         }
+      `,
+        };
+        let config = {
+          headers: { Authorization: "Bearer " + AsyncStorage.getItem("token") },
+        };
+
+        const data = await axios.post(
+          "http://localhost:3000/graphql",
+          reqBody,
+          config
+        );
+        console.log("User data: ", data);
+        console.log("storage: ", AsyncStorage.getItem("token"));
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    profile();
+  });
 
   const logout = async () => {
     try {

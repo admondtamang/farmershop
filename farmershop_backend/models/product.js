@@ -12,6 +12,17 @@ const productSchema = new Schema(
     price: {
       type: Number,
     },
+    weight: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    type: { type: String },
   },
   { timestamps: true }
 );

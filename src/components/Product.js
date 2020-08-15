@@ -12,11 +12,11 @@ export default function Product({ item, onDispatch, navigation }) {
         justifyContent: "center",
         alignItems: "center",
       }}
-      onPress={() => navigation.navigate("ProductScreen", { item: item })}
+      onPress={() => navigation.navigate("ProductScreen")}
     >
       <Image
-        style={{ width: 120, marginBottom: 5, borderRadius: 10 }}
-        source={require(`../../assets/images/cabbage.jpg`)}
+        style={{ width: 120, height: 120, marginBottom: 5, borderRadius: 10 }}
+        source={require("../../assets/images/spanish.jpg")}
       />
       <View
         style={{

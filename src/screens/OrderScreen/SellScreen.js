@@ -6,6 +6,8 @@ import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { Formik } from "formik";
+import * as Yup from "yup";
+import { ScrollView } from "react-native-gesture-handler";
 export default function SellScreen() {
   const handleSubmit = () => {};
   const [image, setImage] = useState(null);
@@ -32,7 +34,6 @@ export default function SellScreen() {
       });
       if (!result.cancelled) {
         setImage(result.uri);
-        // this.setState({ image: result.uri });
       }
 
       console.log(result);
@@ -65,8 +66,14 @@ export default function SellScreen() {
       console.log(e);
     }
   };
+  const productSchema = Yup.object().shape({
+    name: Yup.string().required(),
+    quantity: Yup.number().required(),
+    weight: Yup.string().required(),
+    description: Yup.string().required(),
+  });
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Enter your product</Text>
       <Formik
         initialValues={{
@@ -74,8 +81,8 @@ export default function SellScreen() {
           quality: 0,
           weight: "",
           description: "",
-          image: "",
         }}
+        validationSchema={productSchema}
         onSubmit={onSubmit}
       >
         {(formik) => (
@@ -84,6 +91,7 @@ export default function SellScreen() {
               <TextInput
                 label="Product name"
                 mode="outlined"
+                name="name"
                 onChangeText={formik.handleChange("name")}
                 value={formik.values.name}
                 onBlur={formik.handleBlur("name")}
@@ -96,6 +104,7 @@ export default function SellScreen() {
               <TextInput
                 label="Quantity"
                 mode="outlined"
+                name="quantity"
                 onChangeText={formik.handleChange("quantity")}
                 value={formik.values.quantity}
                 onBlur={formik.handleBlur("quantity")}
@@ -143,6 +152,7 @@ export default function SellScreen() {
                 }}
               />
             )}
+            {image && (formik.values.image = image)}
             <Button style={{ marginVertical: 10 }} onPress={_pickImage}>
               Upload Photo
             </Button>
@@ -150,10 +160,11 @@ export default function SellScreen() {
             <Button mode="contained" onPress={handleSubmit}>
               Submit
             </Button>
+            <pre>{JSON.stringify(formik, null, 2)}</pre>
           </>
         )}
       </Formik>
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
@@ -167,5 +178,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginBottom: 10,
+  },
+  error: {
+    color: "red",
   },
 });

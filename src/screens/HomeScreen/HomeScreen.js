@@ -16,6 +16,7 @@ import { electronics } from "../../Data";
 import ItemTitle from "../../components/ItemTitle";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux";
+import { Surface } from "react-native-paper";
 
 function HomeScreen({ navigation, props }) {
   const dispatch = useDispatch();
@@ -34,11 +35,13 @@ function HomeScreen({ navigation, props }) {
           keyExtractor={(item) => item.id.toString()}
           data={electronics}
           renderItem={({ item }) => (
-            <Product
-              navigation={navigation}
-              item={item}
-              onDispatch={() => dispatch(addItemToCart(item))}
-            />
+            <Surface>
+              <Product
+                navigation={navigation}
+                item={item}
+                onDispatch={() => dispatch(addItemToCart(item))}
+              />
+            </Surface>
           )}
         />
         {/* 

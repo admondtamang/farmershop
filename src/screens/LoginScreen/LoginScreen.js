@@ -12,6 +12,7 @@ import { Formik } from "formik";
 import axios from "axios";
 import { Button } from "react-native-paper";
 import { SignupScreen } from "../SignupScreen";
+import * as Yup from "yup";
 
 export default function LoginScreen({ navigation }) {
   const [borderColor, setBorderColor] = useState(null);
@@ -61,6 +62,10 @@ export default function LoginScreen({ navigation }) {
       console.log(e);
     }
   };
+  const loginSchema = Yup.object().shape({
+    email: Yup.string().email().required(),
+    password: Yup.string().required(),
+  });
 
   if (isLoggedIn) navigation.navigate("Home");
 
@@ -68,7 +73,11 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <Text style={styles.text}>Login with Email and Password</Text>
-      <Formik initialValues={{ email: "", password: "" }} onSubmit={onSubmit}>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={loginSchema}
+        onSubmit={onSubmit}
+      >
         {(formik) => (
           <>
             <View style={styles.action}>
@@ -140,11 +149,7 @@ export default function LoginScreen({ navigation }) {
 
             <Text style={styles.forgot}>Forgot Password?</Text>
 
-            <Button
-              style={styles.login}
-              mode="contained"
-              onPress={formik.handleSubmit}
-            >
+            <Button mode="contained" onPress={formik.handleSubmit}>
               Login
             </Button>
           </>
@@ -228,4 +233,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+  error: { color: "red" },
 });

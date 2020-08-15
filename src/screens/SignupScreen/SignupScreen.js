@@ -12,13 +12,15 @@ import axios from "axios";
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
   const handleSubmit = async () => {
     console.log("EMail and password", email + password);
     try {
       const reqBody = {
         query: `
         mutation{
-          createUser(userInput:{email:"${email}" password:"${password}"}){
+          createUser(userInput:{email:"${email}" password:"${password}",location:"${location}",phone:"${phone}"}){
             _id
             email
             password
@@ -38,6 +40,7 @@ const SignupScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>SignUp</Text>
       <Text style={styles.text}>Enter valid Email and Password</Text>
+
       <TextInput
         label="Email"
         mode="outlined"
@@ -48,17 +51,25 @@ const SignupScreen = ({ navigation }) => {
       <TextInput
         style={styles.section}
         label="Password"
+        secureTextEntry
         mode="outlined"
         value={password}
         onChangeText={(password) => setPassword(password)}
       />
-      {/* <TextInput
+      <TextInput
         style={styles.section}
         label="Phone"
         mode="outlined"
-        value={password}
-        onChangeText={(password) => setPassword(password)}
-      /> */}
+        value={phone}
+        onChangeText={(phone) => setPhone(phone)}
+      />
+      <TextInput
+        style={styles.section}
+        label="Location"
+        mode="outlined"
+        value={location}
+        onChangeText={(location) => setLocation(location)}
+      />
 
       <View style={styles.haveAccount}>
         <Text
