@@ -20,6 +20,7 @@
     "expo": "~37.0.3",
     "expo-ads-admob": "~8.1.0",
     "expo-cli": "^3.23.1",
+    "expo-facebook": "~8.1.0",
     "expo-image-picker": "^8.4.0",
     "formik": "^2.1.4",
     "global": "^4.4.0",

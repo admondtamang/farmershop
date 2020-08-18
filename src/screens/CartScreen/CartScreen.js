@@ -18,7 +18,7 @@ export default function CartScreen(props) {
           keyExtractor={(item) => item.id.toString()}
           data={cartItem}
           renderItem={({ item }) => (
-            <Product
+            <CartItem
               item={item}
               onDispatch={() => {
                 dispatch(removeItemFromCart(item));

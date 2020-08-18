@@ -13,6 +13,7 @@ import axios from "axios";
 import { Button } from "react-native-paper";
 import { SignupScreen } from "../SignupScreen";
 import * as Yup from "yup";
+import * as Facebook from "expo-facebook";
 
 export default function LoginScreen({ navigation }) {
   const [borderColor, setBorderColor] = useState(null);
@@ -37,6 +38,31 @@ export default function LoginScreen({ navigation }) {
     setBorderColor(value);
   };
 
+  const fblogin = async () => {
+    try {
+      await Facebook.initializeAsync("899946727075631");
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ["public_profile"],
+      });
+      if (type === "success") {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(
+          `https://graph.facebook.com/me?access_token=${token}`
+        );
+        Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  };
   const onSubmit = async (values) => {
     try {
       const reqBody = {
@@ -151,6 +177,9 @@ export default function LoginScreen({ navigation }) {
 
             <Button mode="contained" onPress={formik.handleSubmit}>
               Login
+            </Button>
+            <Button mode="outlined" onPress={fblogin}>
+              Login in with Facebook
             </Button>
           </>
         )}

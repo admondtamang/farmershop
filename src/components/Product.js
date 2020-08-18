@@ -1,22 +1,28 @@
 import React from "react";
 import { ScrollView, Image, View } from "react-native";
 import { Button, Text, Card } from "react-native-paper";
-export default function Product({ item, onDispatch, navigation }) {
+export default function Product({ item, onDispatch, navigation, styled }) {
   return (
-    // <View
-    //   style={{ width: 130, justifyContent: "center", alignItems: "center" }}
-    // >
     <Card
-      style={{
-        padding: 10,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      onPress={() => navigation.navigate("ProductScreen")}
+      style={[
+        {
+          padding: 10,
+          justifyContent: "center",
+          alignItems: "center",
+          height: 200,
+        },
+        styled,
+      ]}
+      onPress={() =>
+        navigation.navigate("ProductScreen", {
+          item: item,
+          onDispatch: onDispatch,
+        })
+      }
     >
       <Image
-        style={{ width: 120, height: 120, marginBottom: 5, borderRadius: 10 }}
-        source={require("../../assets/images/spanish.jpg")}
+        style={{ width: 120, height: 120, marginBottom: 5, borderRadius: 2 }}
+        source={require("../../assets/images/" + item.src)}
       />
       <View
         style={{

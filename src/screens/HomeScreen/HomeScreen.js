@@ -18,8 +18,40 @@ import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux";
 import { Surface } from "react-native-paper";
 
-function HomeScreen({ navigation, props }) {
+function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
+  const WIDTH = Dimensions.get("window").width;
+  const numColumns = 3;
+
+  const formatData = (dataList, numColumns) => {
+    const totalRows = Math.floor(dataList.length / numColumns);
+    let totalLasttRow = dataList.length - totalRows * numColumns;
+    while (totalLasttRow !== 0 && totalLasttRow !== numColumns) {
+      dataList.push({ name: "blank", empty: true });
+      totalLasttRow++;
+    }
+    return dataList;
+  };
+
+  const renderItem = ({ item }) => {
+    if (item.empty) {
+      return (
+        <View
+          style={[styles.productContainer, { backgroundColor: "transparent" }]}
+        />
+      );
+    }
+    return (
+      <View style={styles.productContainer}>
+        <Product
+          styled={{ height: WIDTH / numColumns }}
+          navigation={navigation}
+          item={item}
+          onDispatch={() => dispatch(addItemToCart(item))}
+        />
+      </View>
+    );
+  };
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
@@ -31,23 +63,11 @@ function HomeScreen({ navigation, props }) {
 
         <FlatList
           style={{ margin: 20 }}
-          numColumns={3}
-          keyExtractor={(item) => item.id.toString()}
-          data={electronics}
-          renderItem={({ item }) => (
-            <Surface>
-              <Product
-                navigation={navigation}
-                item={item}
-                onDispatch={() => dispatch(addItemToCart(item))}
-              />
-            </Surface>
-          )}
+          data={formatData(electronics, numColumns)}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={renderItem}
+          numColumns={numColumns}
         />
-        {/* 
-        {electronics.map((item) => (
-          <Product item={item} />
-        ))} */}
       </ScrollView>
     </View>
   );
@@ -56,7 +76,9 @@ function HomeScreen({ navigation, props }) {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  productContainer: {
     flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
