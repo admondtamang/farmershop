@@ -7,9 +7,9 @@ export default function AuthStack() {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Home" component={StackNavigator} />
-      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignupScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Home" component={StackNavigator} />
     </Stack.Navigator>
   );
 }

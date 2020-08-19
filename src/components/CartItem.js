@@ -1,31 +1,48 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Card, Title, Paragraph, Button, Text } from "react-native-paper";
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "../redux";
+import { View, StyleSheet, Image } from "react-native";
+import { Button, Text, IconButton, List } from "react-native-paper";
 
 export default function CartItem({ item, onDispatch }) {
   // const dispatch = useDispatch();
   return (
-    <View
-      style={{ width: 130, justifyContent: "center", alignItems: "center" }}
-    >
-      <Image
-        style={{ width: 120, height: 120, marginBottom: 5, borderRadius: 10 }}
-        source={require(`../../assets/images/${item.src}`)}
-      />
-      <Text>{item.name}</Text>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Text>Nrs {item.price}</Text>
+    <List.Item
+      style={styles.cartItemContainer}
+      title={item.name}
+      description={item.price}
+      left={() => (
+        <Image
+          source={require(`../../assets/images/${item.src}`)}
+          style={styles.cartImage}
+        />
+      )}
+      right={() => (
+        <IconButton icon="delete" color="red" size={20} onPress={onDispatch} />
+      )}
+    />
 
-        <Button onPress={onDispatch}>Buy</Button>
-      </View>
-    </View>
+    // <View style={styles.cartItemContainer}>
+    //   <Image
+    //     source={require(`../../assets/images/${item.src}`)}
+    //     style={styles.cartImage}
+    //   />
+    //   <View>
+    //     <Text>{item.name}</Text>
+    //     <Text>Nrs {item.price}</Text>
+    //     <IconButton icon="delete" color="red" size={20} onPress={onDispatch} />
+    //   </View>
+    // </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cartItemContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  cartImage: {
+    width: 40,
+    height: 40,
+    marginBottom: 5,
+    borderRadius: 10,
+  },
+});

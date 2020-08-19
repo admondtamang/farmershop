@@ -22,6 +22,7 @@ function getHeaderTitle(route) {
 export default function StackNavigator() {
   return (
     <Stack.Navigator
+      // initialRouteName="CartScreen"
       screenOptions={{
         headerRight: () => <ShoppingCartIcon />,
       }}

@@ -14,6 +14,7 @@ import { Button } from "react-native-paper";
 import { SignupScreen } from "../SignupScreen";
 import * as Yup from "yup";
 import * as Facebook from "expo-facebook";
+import StyledInput from "../../components/StyledInput";
 
 export default function LoginScreen({ navigation }) {
   const [borderColor, setBorderColor] = useState(null);
@@ -132,6 +133,7 @@ export default function LoginScreen({ navigation }) {
                   value={formik.values.email}
                   onBlur={formik.handleBlur("email")}
                   onFocus={() => onFocusInput("email")}
+                  autoFocus
                 />
                 <Text style={styles.error}>
                   {formik.touched.email && formik.errors.email}

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
-import Product from "../../components/Product";
 // import LottieView from "lottie-react-native";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart } from "../../redux";
+import CartItem from "./../../components/CartItem";
+import { List } from "react-native-paper";
 
 export default function CartScreen(props) {
   const cartItem = useSelector((state) => state);
@@ -12,20 +13,22 @@ export default function CartScreen(props) {
     <View>
       {console.log("cart item", cartItem)}
       {cartItem.length > 0 ? (
-        <FlatList
-          style={{ margin: 20 }}
-          numColumns={3}
-          keyExtractor={(item) => item.id.toString()}
-          data={cartItem}
-          renderItem={({ item }) => (
-            <CartItem
-              item={item}
-              onDispatch={() => {
-                dispatch(removeItemFromCart(item));
-              }}
-            />
-          )}
-        />
+        <List.Section title="Accordions">
+          <FlatList
+            style={{ margin: 20 }}
+            numColumns={3}
+            keyExtractor={(item) => item.id.toString()}
+            data={cartItem}
+            renderItem={({ item }) => (
+              <CartItem
+                item={item}
+                onDispatch={() => {
+                  dispatch(removeItemFromCart(item));
+                }}
+              />
+            )}
+          />
+        </List.Section>
       ) : (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           {/* <LottieView
