@@ -15,14 +15,19 @@ export default function ProductScreen({ route, navigation }) {
         margin: 30,
       }}
     >
-      <Image
-        style={{
-          height: 220,
-          marginBottom: 5,
-          borderRadius: 10,
-        }}
-        source={require("../../../assets/images/" + item.src)}
-      />
+      {!item.src ? (
+        <ActivityIndicator />
+      ) : (
+        <Image
+          style={{
+            height: 220,
+            marginBottom: 5,
+            borderRadius: 10,
+          }}
+          source={require("../../../assets/images/cabbage.jpg")}
+          // source={require("../../../assets/images/" + item.src)}
+        />
+      )}
       <View>
         <Text style={{ fontWeight: "bold", fontSize: 25 }}>{item.name}</Text>
         <Text>Description of Cabbage</Text>

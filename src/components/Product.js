@@ -20,10 +20,10 @@ export default function Product({ item, onDispatch, navigation, styled }) {
         })
       }
     >
-      <Image
+      {/* <Image
         style={{ width: 120, height: 120, marginBottom: 5, borderRadius: 2 }}
         source={require("../../assets/images/" + item.src)}
-      />
+      /> */}
       <View
         style={{
           justifyContent: "space-between",

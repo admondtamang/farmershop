@@ -16,13 +16,21 @@ import { Formik } from "formik";
 const SignupScreen = ({ navigation }) => {
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email().required(),
-    password: Yup.string().required(),
+    password: Yup.string()
+      .required()
+      .min(2, "Seems a bit short...")
+      .max(10, "We prefer insecure system, try a shorter password."),
     phone: Yup.string().required().max(10).min(4),
     location: Yup.string().required().max(20),
+    confirmPassword: Yup.string()
+      .required()
+      .label("Confirm password")
+      .test("passwords-match", "Passwords must match !!!", function (value) {
+        return this.parent.password === value;
+      }),
   });
 
   const onSubmit = async (values, actions) => {
-    console.log("Email and password", values);
     try {
       const reqBody = {
         query: `
@@ -38,18 +46,17 @@ const SignupScreen = ({ navigation }) => {
 
       await axios.post("http://localhost:3000/graphql", reqBody);
       actions.setSubmitting(false);
-      ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
+      // ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
       navigation.navigate("Login");
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      actions.setFieldError("general", error.message);
     }
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <ScrollView
         contentContainerStyle={{
-          flex: 1,
           justifyContent: "center",
           paddingHorizontal: 38,
           backgroundColor: "white",
@@ -71,13 +78,7 @@ const SignupScreen = ({ navigation }) => {
                 formikKey="email"
                 placeholder="Email"
               />
-              <StyledInput
-                label="password"
-                formikProps={formikProps}
-                formikKey="password"
-                placeholder="Password"
-                secureTextEntry
-              />
+
               <StyledInput
                 label="Phone"
                 formikProps={formikProps}
@@ -90,6 +91,21 @@ const SignupScreen = ({ navigation }) => {
                 formikKey="location"
                 placeholder="location"
               />
+              <StyledInput
+                label="password"
+                formikProps={formikProps}
+                formikKey="password"
+                placeholder="Password"
+                secureTextEntry
+              />
+              <StyledInput
+                label="Confirm Password"
+                formikProps={formikProps}
+                formikKey="confirmPassword"
+                placeholder="confirm password"
+                secureTextEntry
+              />
+
               <View style={styles.haveAccount}>
                 <Text
                   style={{
@@ -104,18 +120,19 @@ const SignupScreen = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               </View>
-              {formikProps.isSubmitting ? (
-                <ActivityIndicator />
-              ) : (
-                <Button
-                  mode="contained"
-                  style={styles.section}
-                  onPress={formikProps.handleSubmit}
-                >
-                  Submit
-                </Button>
-              )}
-              <pre>{JSON.stringify(formikProps, null, 2)}</pre>
+
+              <Text style={{ color: "red" }}>{formikProps.errors.general}</Text>
+
+              <Button
+                mode="contained"
+                style={styles.section}
+                loading={formikProps.isSubmitting}
+                onPress={formikProps.handleSubmit}
+              >
+                Submit
+              </Button>
+              {/* <pre>{JSON.stringify(formikProps, null, 2)}</pre> */}
+              {/* <Text>{JSON.stringify(formikProps, null, 2)}</Text> */}
             </>
           )}
         </Formik>

@@ -10,16 +10,18 @@ export default function StyledInput({
 }) {
   return (
     <View style={[styles.section]}>
-      <Text style={{ marginBottom: 3 }}>{label}</Text>
+      {/* <Text style={{ marginBottom: 3 }}>{label}</Text> */}
       <TextInput
         style={[styles.inputStyle]}
         onChangeText={formikProps.handleChange(formikKey)}
         onBlur={formikProps.handleBlur(formikKey)}
         {...rest}
       />
-      <Text style={styles.error}>
-        {formikProps.touched[formikKey] && formikProps.errors[formikKey]}
-      </Text>
+      {formikProps.touched[formikKey] && formikProps.errors[formikKey] && (
+        <Text style={styles.error}>
+          {formikProps.touched[formikKey] && formikProps.errors[formikKey]}
+        </Text>
+      )}
     </View>
   );
 }
@@ -27,6 +29,7 @@ export default function StyledInput({
 const styles = StyleSheet.create({
   section: { marginVertical: 5 },
   inputStyle: {
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: "black",
     padding: 10,

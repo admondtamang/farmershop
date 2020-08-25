@@ -10,7 +10,7 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Formik } from "formik";
 import axios from "axios";
-import { Button } from "react-native-paper";
+import { Button, HelperText, ActivityIndicator } from "react-native-paper";
 import { SignupScreen } from "../SignupScreen";
 import * as Yup from "yup";
 import * as Facebook from "expo-facebook";
@@ -64,7 +64,7 @@ export default function LoginScreen({ navigation }) {
       alert(`Facebook Login Error: ${message}`);
     }
   };
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, actions) => {
     try {
       const reqBody = {
         query: `
@@ -86,7 +86,10 @@ export default function LoginScreen({ navigation }) {
       setIsLoggedIn(!isLoggedIn);
       await AsyncStorage.setItem("token", token);
     } catch (e) {
+      actions.setFieldError("general", e.message);
       console.log(e);
+    } finally {
+      actions.setSubmitting(false);
     }
   };
   const loginSchema = Yup.object().shape({
@@ -135,10 +138,12 @@ export default function LoginScreen({ navigation }) {
                   onFocus={() => onFocusInput("email")}
                   autoFocus
                 />
-                <Text style={styles.error}>
-                  {formik.touched.email && formik.errors.email}
-                </Text>
               </View>
+              {formik.touched.email && formik.errors.email && (
+                <HelperText type="error">
+                  {formik.touched.email && formik.errors.email}
+                </HelperText>
+              )}
             </View>
 
             <View style={styles.action}>
@@ -169,20 +174,29 @@ export default function LoginScreen({ navigation }) {
                   onFocus={() => onFocusInput("password")}
                   secureTextEntry
                 />
-                <Text style={styles.error}>
-                  {formik.touched.password && formik.errors.password}
-                </Text>
               </View>
+              {formik.touched.password && formik.errors.password && (
+                <HelperText type="error">
+                  {formik.touched.password && formik.errors.password}
+                </HelperText>
+              )}
             </View>
 
             <Text style={styles.forgot}>Forgot Password?</Text>
+            {formik.errors.general && (
+              <Text style={{ color: "red" }}>{formik.errors.general}</Text>
+            )}
 
-            <Button mode="contained" onPress={formik.handleSubmit}>
-              Login
-            </Button>
-            <Button mode="outlined" onPress={fblogin}>
+            {formik.isSubmitting ? (
+              <ActivityIndicator />
+            ) : (
+              <Button mode="contained" onPress={formik.handleSubmit}>
+                Login
+              </Button>
+            )}
+            {/* <Button mode="outlined" onPress={fblogin}>
               Login in with Facebook
-            </Button>
+            </Button> */}
           </>
         )}
       </Formik>
@@ -248,6 +262,7 @@ const styles = StyleSheet.create({
   forgot: {
     textAlign: "right",
     marginTop: 15,
+    marginBottom: 10,
     color: "gray",
   },
   login: {

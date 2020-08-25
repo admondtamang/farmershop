@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button, Surface } from "react-native-paper";
 // import ImagePicker from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
@@ -24,6 +24,16 @@ export default function SellScreen() {
     }
   };
 
+  // const __uploadImage = (async) => {
+  //   const payload = new FormData();
+  //   payload.append("image", image);
+
+  //   const config = {
+  //     body: payload,
+  //     method: "POST",
+  //   };
+  // };
+
   const _pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -33,7 +43,13 @@ export default function SellScreen() {
         quality: 1,
       });
       if (!result.cancelled) {
-        setImage(result.uri);
+        console.log("Respult  ", result);
+        const img = {
+          uri: result.uri,
+          type: result.type,
+          name: result.name || result.uri.lastIndexOf("/") + 1,
+        };
+        setImage(img);
       }
 
       console.log(result);
@@ -141,18 +157,21 @@ export default function SellScreen() {
             </View>
 
             {image && (
-              <Image
-                source={image}
-                style={{
-                  width: 200,
-                  height: 200,
-                  flex: 1,
-                  justifyContent: "center",
-                  marginVertical: 20,
-                }}
-              />
+              <Surface>
+                <Image
+                  source={{ uri: image }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    flex: 1,
+                    justifyContent: "center",
+                    marginVertical: 20,
+                  }}
+                />
+              </Surface>
             )}
-            {image && (formik.values.image = image)}
+
+            {/* {image && (formik.values.image = image)} */}
             <Button style={{ marginVertical: 10 }} onPress={_pickImage}>
               Upload Photo
             </Button>
@@ -160,7 +179,7 @@ export default function SellScreen() {
             <Button mode="contained" onPress={handleSubmit}>
               Submit
             </Button>
-            <pre>{JSON.stringify(formik, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(formik, null, 2)}</pre> */}
           </>
         )}
       </Formik>

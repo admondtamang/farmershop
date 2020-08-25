@@ -16,7 +16,6 @@ export default function CartScreen(props) {
         <List.Section title="Accordions">
           <FlatList
             style={{ margin: 20 }}
-            numColumns={3}
             keyExtractor={(item) => item.id.toString()}
             data={cartItem}
             renderItem={({ item }) => (
