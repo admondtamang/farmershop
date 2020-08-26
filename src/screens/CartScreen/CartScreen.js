@@ -7,11 +7,12 @@ import CartItem from "./../../components/CartItem";
 import { List } from "react-native-paper";
 
 export default function CartScreen(props) {
-  const cartItem = useSelector((state) => state);
+  const cartItem = useSelector((state) => state.cartItems);
   const dispatch = useDispatch();
   return (
     <View>
       {console.log("cart item", cartItem)}
+      {console.log("cart item", cartItem.length)}
       {cartItem.length > 0 ? (
         <List.Section title="Accordions">
           <FlatList

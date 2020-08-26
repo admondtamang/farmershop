@@ -1,5 +1,5 @@
 import { buildSchema } from "graphql";
-
+// import { Upload } from "graphql-upload";
 const graphQlSchema = buildSchema(`
 
 type Product{
@@ -13,18 +13,24 @@ type Product{
 }
 type User{
     _id:ID!
+    userName:String!
     email:String!
-    password:String
+    password:String  
     location:String
     phone:String
 }
-
+type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
 type AuthData{
     userId:ID!
     token:String!
 }
 
 input UserInput{
+    userName:String!
     email:String!
     password:String!
     phone:String
@@ -49,6 +55,7 @@ type RootMutation{
     createUser(userInput:UserInput):User
     createProduct(productInput:ProductInput):Product
     demandProduct(productInput:ProductInput):Product
+
 }
 
 schema{

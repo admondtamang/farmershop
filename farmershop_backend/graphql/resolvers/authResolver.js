@@ -11,9 +11,10 @@ export default {
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
       const user = new User({
-        firstName: args.userInput.firstName,
-        lastName: args.userInput.lastName,
+        userName: args.userInput.userName,
+        phone: args.userInput.phone,
         email: args.userInput.email,
+        location: args.userInput.location,
         password: hashedPassword,
       });
       const result = await user.save();
@@ -23,12 +24,13 @@ export default {
     }
   },
   me: async (args, req) => {
-    console.log(req);
     if (!req.isAuth) {
       throw new Error("Unauthenticated!");
     }
-    const { location, email, phone } = await User.findById(req.userId);
-    return { email, location, phone };
+    const { location, email, phone, userName } = await User.findById(
+      req.userId
+    );
+    return { email, location, phone, userName };
   },
 
   login: async ({ email, password }) => {

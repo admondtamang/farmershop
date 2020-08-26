@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, SafeAreaView, AsyncStorage } from "react-native";
 import {
   Avatar,
@@ -15,37 +15,42 @@ import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const [userData, setUserData] = useState({});
   useEffect(() => {
     const profile = async () => {
       try {
         const reqBody = {
           query: `
-        query{
-          me{
-            email,
-           password
-         } 
-         }
-      `,
+            query{
+              me{
+                email,
+                phone,
+                location,
+                userName
+            } 
+            }
+          `,
         };
         let config = {
-          headers: { Authorization: "Bearer " + AsyncStorage.getItem("token") },
+          headers: {
+            Authorization: "Bearer " + (await AsyncStorage.getItem("token")),
+          },
         };
 
-        const data = await axios.post(
-          "http://localhost:3000/graphql",
-          reqBody,
-          config
-        );
-        console.log("User data: ", data);
-        console.log("storage: ", AsyncStorage.getItem("token"));
+        const {
+          data: {
+            data: { me },
+          },
+        } = await axios.post("http://localhost:3000/graphql", reqBody, config);
+        setUserData(me);
+        console.log(me);
       } catch (e) {
         console.log(e);
       }
     };
 
     profile();
-  });
+  }, []);
 
   const logout = async () => {
     try {
@@ -55,7 +60,7 @@ const ProfileScreen = () => {
       console.log(error);
     }
   };
-
+  const { email, phone, location, userName } = userData;
   return (
     <SafeAreaView>
       <View style={styles.userInfoSection}>
@@ -76,9 +81,11 @@ const ProfileScreen = () => {
                 },
               ]}
             >
-              Admond Tamang
+              {userName}
             </Title>
-            <Caption style={styles.caption}>@admondtamang</Caption>
+            <Caption style={styles.caption}>
+              @{userName}
+            </Caption>
           </View>
         </View>
       </View>
@@ -86,21 +93,15 @@ const ProfileScreen = () => {
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <Icon name="map-marker-radius" color="#777777" size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            Nuwakot, Nepal
-          </Text>
+          <Text style={{ color: "#777777", marginLeft: 20 }}>{location}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            +977 9880199302
-          </Text>
+          <Text style={{ color: "#777777", marginLeft: 20 }}>+977 {phone}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            admondtamang@gmail.com
-          </Text>
+          <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
         </View>
         <Button mode="contained" style={styles.section} onPress={logout}>
           Logout

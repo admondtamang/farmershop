@@ -15,6 +15,7 @@ import { Formik } from "formik";
 
 const SignupScreen = ({ navigation }) => {
   const SignupSchema = Yup.object().shape({
+    userName: Yup.string().required(),
     email: Yup.string().email().required(),
     password: Yup.string()
       .required()
@@ -35,7 +36,7 @@ const SignupScreen = ({ navigation }) => {
       const reqBody = {
         query: `
         mutation{
-            createUser(userInput:{email:"${values.email}" password:"${values.password}",location:"${values.location}",phone:"${values.phone}"}){
+            createUser(userInput:{userName:"${values.userName}"email:"${values.email}" password:"${values.password}",location:"${values.location}",phone:"${values.phone}"}){
             _id
             email
             password
@@ -72,6 +73,12 @@ const SignupScreen = ({ navigation }) => {
         >
           {(formikProps) => (
             <>
+              <StyledInput
+                label="User Name"
+                formikProps={formikProps}
+                formikKey="userName"
+                placeholder="User Name"
+              />
               <StyledInput
                 label="Email"
                 formikProps={formikProps}
