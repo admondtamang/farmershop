@@ -14,11 +14,12 @@ export default function CartScreen(props) {
       {console.log("cart item", cartItem)}
       {console.log("cart item", cartItem.length)}
       {cartItem.length > 0 ? (
-        <List.Section title="Accordions">
+        <List.Section title="Your shopping list">
           <FlatList
             style={{ margin: 20 }}
             keyExtractor={(item) => item.id.toString()}
             data={cartItem}
+            // ListFooterComponent={}
             renderItem={({ item }) => (
               <CartItem
                 item={item}

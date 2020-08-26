@@ -11890,6 +11890,13 @@ react-native-image-picker@^2.3.3:
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.3.tgz#eaacd4a1ed9e9887613be31f0765478ca2f18a51"
   integrity sha512-i/7JDnxKkUGSbFY2i7YqFNn3ncJm1YlcrPKXrXmJ/YUElz8tHkuwknuqBd9QCJivMfHX41cmq4XvdBDwIOtO+A==
 
+react-native-input-spinner@^1.2.18:
+  version "1.2.18"
+  resolved "https://registry.yarnpkg.com/react-native-input-spinner/-/react-native-input-spinner-1.2.18.tgz#6380d1e5b9558bca4e3d3f1ba18d5bbfbad24765"
+  integrity sha512-j0HlaYM4+KxfFJNG2OamQ+OvUE3HKynwDKlWOalhtnujbFciK+2ZDfGuxWcS7PMMlrMV0gl+Q6oE9SZ3ydglPg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -11975,6 +11982,14 @@ react-native-web@~0.11.7:
     normalize-css-color "^1.0.2"
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
+
+react-native-webview@^10.8.2:
+  version "10.8.2"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.8.2.tgz#54a826cdbb81550996ad754282e0b7c3a5618122"
+  integrity sha512-GkIaKaP2CB7goxPCbtfqobWGojR9Owg7KF5cB3pcAZNmdQQ2AzawhYspydEX3xcsP8q9zgSJTtdoYbTm4WZZcA==
+  dependencies:
+    escape-string-regexp "2.0.0"
+    invariant "2.2.4"
 
 "react-native@https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz":
   version "0.61.4"

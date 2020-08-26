@@ -1,5 +1,10 @@
 import React from "react";
-import { HomeScreen, OrderScreen, ProfileScreen } from "./../screens";
+import {
+  HomeScreen,
+  OrderScreen,
+  ProfileScreen,
+  PriceScreen,
+} from "./../screens";
 import {
   MaterialIcons,
   FontAwesome,
@@ -12,7 +17,7 @@ const TabNavigator = () => {
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: "tomato",
+        activeTintColor: "#4A5AEF",
         inactiveTintColor: "gray",
       }}
     >
@@ -33,6 +38,16 @@ const TabNavigator = () => {
           tabBarLabel: "Order",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="food" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Price"
+        component={PriceScreen}
+        options={{
+          tabBarLabel: "Price",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="money" color={color} size={size} />
           ),
         }}
       />

@@ -5,3 +5,4 @@ export * from "./CartScreen";
 export * from "./LoginScreen";
 export * from "./SignupScreen";
 export * from "./ProductScreen";
+export * from "./PriceScreen";

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { TextInput, Button, Surface } from "react-native-paper";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { TextInput, Button, Surface, Title } from "react-native-paper";
 // import ImagePicker from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { ScrollView } from "react-native-gesture-handler";
 export default function SellScreen() {
   const handleSubmit = () => {};
   const [image, setImage] = useState(null);
@@ -90,7 +89,7 @@ export default function SellScreen() {
   });
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Enter your product</Text>
+      <Title style={styles.title}>Enter your product</Title>
       <Formik
         initialValues={{
           name: "",
@@ -159,7 +158,7 @@ export default function SellScreen() {
             {image && (
               <Surface>
                 <Image
-                  source={{ uri: image }}
+                  source={image}
                   style={{
                     width: 200,
                     height: 200,
@@ -194,7 +193,6 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#3465d9",
-    fontWeight: "bold",
     fontSize: 20,
     marginBottom: 10,
   },

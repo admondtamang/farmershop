@@ -41,7 +41,7 @@ export default function StackNavigator() {
           headerRight: null,
         }}
       />
-      <Stack.Screen name="ProductScreen" component={ProductScreen} />
+      <Stack.Screen name="Product" component={ProductScreen} />
     </Stack.Navigator>
   );
 }

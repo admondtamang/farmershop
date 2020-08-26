@@ -1,10 +1,8 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   View,
   ScrollView,
-  Button,
   FlatList,
   Dimensions,
 } from "react-native";
@@ -16,13 +14,16 @@ import { electronics } from "../../Data";
 import ItemTitle from "../../components/ItemTitle";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux";
-import { Surface } from "react-native-paper";
+import { Snackbar } from "react-native-paper";
 
-function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const WIDTH = Dimensions.get("window").width;
   const numColumns = 3;
+  const [visible, setVisible] = React.useState(false);
 
+  const onDismissSnackBar = () => setVisible(false);
+  const onToggleSnackBar = () => setVisible(!visible);
   const formatData = (dataList, numColumns) => {
     const totalRows = Math.floor(dataList.length / numColumns);
     let totalLasttRow = dataList.length - totalRows * numColumns;
@@ -44,7 +45,8 @@ function HomeScreen({ navigation }) {
     return (
       <View style={styles.productContainer}>
         <Product
-          styled={{ height: WIDTH / numColumns }}
+          productHeight={WIDTH / numColumns}
+          onToggleSnackBar={onToggleSnackBar}
           navigation={navigation}
           item={item}
           onDispatch={() => dispatch(addItemToCart(item))}
@@ -54,31 +56,35 @@ function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={{ backgroundColor: "white", flex: 1 }}>
-      <ScrollView style={styles.container}>
-        <Search />
-        <MyCarousel />
+    <View style={styles.container}>
+      <FlatList
+        data={formatData(electronics, numColumns)}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderItem}
+        ListHeaderComponent={
+          <>
+            <Search />
+            <MyCarousel />
 
-        <ItemTitle name="Vegetables" />
-
-        <FlatList
-          style={{ margin: 20 }}
-          data={formatData(electronics, numColumns)}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
-          numColumns={numColumns}
-        />
-      </ScrollView>
+            <ItemTitle name="Vegetables" />
+          </>
+        }
+        numColumns={numColumns}
+      />
+      <Snackbar visible={visible} duration={3000} onDismiss={onDismissSnackBar}>
+        Added to cart
+      </Snackbar>
     </View>
   );
 }
-
-export default HomeScreen;
 
 const styles = StyleSheet.create({
   productContainer: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  container: {
+    backgroundColor: "white",
   },
 });

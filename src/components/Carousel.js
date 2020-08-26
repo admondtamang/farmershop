@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from "react-native";
 
 const ENTRIES1 = [
@@ -68,17 +69,19 @@ const MyCarousel = (props) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={goForward}>
-      <Carousel
-        ref={carouselRef}
-        sliderWidth={screenWidth}
-        sliderHeight={screenWidth}
-        itemWidth={screenWidth - 60}
-        data={entries}
-        renderItem={renderItem}
-        hasParallaxImages={true}
-      />
-    </TouchableOpacity>
+    <ScrollView>
+      <TouchableOpacity style={styles.container} onPress={goForward}>
+        <Carousel
+          ref={carouselRef}
+          sliderWidth={screenWidth}
+          sliderHeight={screenWidth}
+          itemWidth={screenWidth - 60}
+          data={entries}
+          renderItem={renderItem}
+          hasParallaxImages={true}
+        />
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
