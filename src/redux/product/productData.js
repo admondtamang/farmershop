@@ -1,21 +1,18 @@
-export const electronics = [
+export const product = [
   {
     id: 1,
     name: "Spinash",
-    description: "good spanish",
     price: 49.99,
     src: "https://imgur.com/aEsf5Gj.jpg",
   },
   {
     id: 2,
     name: "Squash",
-    description: "good spanish",
     price: 199,
     src: "https://imgur.com/tH30Ekv.jpg",
   },
   {
     id: 3,
-    description: "good spanish",
     name: "Tomato",
     price: 300,
     src: "https://imgur.com/LDl9Aki.jpg",

@@ -12,6 +12,7 @@ import Search from "../../components/Search";
 import Product from "../../components/Product";
 import { electronics } from "../../Data";
 import ItemTitle from "../../components/ItemTitle";
+import DemandProductList from "../../components/DemandProductList";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux";
 import { Snackbar } from "react-native-paper";
@@ -56,7 +57,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <FlatList
         data={formatData(electronics, numColumns)}
         keyExtractor={(item, index) => index.toString()}
@@ -71,10 +72,12 @@ export default function HomeScreen({ navigation }) {
         }
         numColumns={numColumns}
       />
+      <ItemTitle name="Demand Vegetables" />
+      <DemandProductList />
       <Snackbar visible={visible} duration={3000} onDismiss={onDismissSnackBar}>
         Added to cart
       </Snackbar>
-    </View>
+    </ScrollView>
   );
 }
 

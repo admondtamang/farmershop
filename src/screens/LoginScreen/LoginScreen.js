@@ -92,6 +92,7 @@ export default function LoginScreen({ navigation }) {
       actions.setSubmitting(false);
     }
   };
+
   const loginSchema = Yup.object().shape({
     email: Yup.string().email().required(),
     password: Yup.string().required(),

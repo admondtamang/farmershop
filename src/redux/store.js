@@ -1,5 +1,8 @@
 import cartReducer from "./cart/cartReducer";
-import { createStore } from "redux";
+import logger from "redux-logger";
+import { applyMiddleware, createStore } from "redux";
 
-const store = createStore(cartReducer);
+const midddleware = [logger];
+
+const store = createStore(cartReducer, applyMiddleware(...midddleware));
 export default store;

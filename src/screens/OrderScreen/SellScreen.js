@@ -8,7 +8,6 @@ import * as Permissions from "expo-permissions";
 import { Formik } from "formik";
 import * as Yup from "yup";
 export default function SellScreen() {
-  const handleSubmit = () => {};
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -58,25 +57,25 @@ export default function SellScreen() {
   };
   const onSubmit = async (values) => {
     try {
-      const reqBody = {
-        query: `
-      query{
-        login(email:"${values.email}",password:"${values.password}"){
-          token,userId
-        }
-      }
-      `,
-      };
+      // const reqBody = {
+      //   query: `
+      // query{
+      //   login(email:"${values.email}",password:"${values.password}"){
+      //     token,userId
+      //   }
+      // }
+      // `,
+      // };
 
-      const {
-        data: {
-          data: {
-            login: { token },
-          },
-        },
-      } = await axios.post("http://localhost:3000/graphql", reqBody);
-      setIsLoggedIn(!isLoggedIn);
-      await AsyncStorage.setItem("token", token);
+      // const {
+      //   data: {
+      //     data: {
+      //       login: { token },
+      //     },
+      //   },
+      // } = await axios.post("http://localhost:3000/graphql", reqBody);
+
+      console.log("values: ", values.name);
     } catch (e) {
       console.log(e);
     }
@@ -86,6 +85,7 @@ export default function SellScreen() {
     quantity: Yup.number().required(),
     weight: Yup.string().required(),
     description: Yup.string().required(),
+    picture: Yup.string(),
   });
   return (
     <ScrollView style={styles.container}>
@@ -93,9 +93,10 @@ export default function SellScreen() {
       <Formik
         initialValues={{
           name: "",
-          quality: 0,
+          quantity: 0,
           weight: "",
           description: "",
+          picture: "",
         }}
         validationSchema={productSchema}
         onSubmit={onSubmit}
@@ -106,7 +107,6 @@ export default function SellScreen() {
               <TextInput
                 label="Product name"
                 mode="outlined"
-                name="name"
                 onChangeText={formik.handleChange("name")}
                 value={formik.values.name}
                 onBlur={formik.handleBlur("name")}
@@ -119,7 +119,6 @@ export default function SellScreen() {
               <TextInput
                 label="Quantity"
                 mode="outlined"
-                name="quantity"
                 onChangeText={formik.handleChange("quantity")}
                 value={formik.values.quantity}
                 onBlur={formik.handleBlur("quantity")}
@@ -155,6 +154,19 @@ export default function SellScreen() {
               </Text>
             </View>
 
+            <View>
+              <TextInput
+                label="Add picture link..."
+                mode="outlined"
+                onChangeText={formik.handleChange("picture")}
+                value={formik.values.picture}
+                onBlur={formik.handleBlur("picture")}
+              />
+              <Text style={styles.error}>
+                {formik.touched.picture && formik.errors.picture}
+              </Text>
+            </View>
+
             {image && (
               <Surface>
                 <Image
@@ -175,10 +187,14 @@ export default function SellScreen() {
               Upload Photo
             </Button>
 
-            <Button mode="contained" onPress={handleSubmit}>
+            <Button
+              mode="contained"
+              onPress={onSubmit}
+              style={{ marginBottom: 50 }}
+            >
               Submit
             </Button>
-            {/* <pre>{JSON.stringify(formik, null, 2)}</pre> */}
+            <pre>{JSON.stringify(formik, null, 2)}</pre>
           </>
         )}
       </Formik>
@@ -188,8 +204,9 @@ export default function SellScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "white",
+    padding: 20,
+    paddingBottom: 0,
   },
   title: {
     color: "#3465d9",
