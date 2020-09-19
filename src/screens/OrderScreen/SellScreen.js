@@ -194,7 +194,7 @@ export default function SellScreen() {
             >
               Submit
             </Button>
-            <pre>{JSON.stringify(formik, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(formik, null, 2)}</pre> */}
           </>
         )}
       </Formik>

@@ -10,10 +10,10 @@ const DemandProductList = () => (
       <DataTable.Title numeric>Quantity</DataTable.Title>
     </DataTable.Header>
     {electronics.map((data) => (
-      <DataTable.Row>
+      <DataTable.Row key={data.id}>
         <DataTable.Cell>{data.name}</DataTable.Cell>
         <DataTable.Cell>{data.description}</DataTable.Cell>
-        <DataTable.Cell>{data.price}</DataTable.Cell>
+        <DataTable.Cell numeric>{data.price}</DataTable.Cell>
       </DataTable.Row>
     ))}
 
