@@ -11,10 +11,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Formik } from "formik";
 import axios from "axios";
 import { Button, HelperText, ActivityIndicator } from "react-native-paper";
-import { SignupScreen } from "../SignupScreen";
 import * as Yup from "yup";
 import * as Facebook from "expo-facebook";
-import StyledInput from "../../components/StyledInput";
 
 export default function LoginScreen({ navigation }) {
   const [borderColor, setBorderColor] = useState(null);

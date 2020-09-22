@@ -10,21 +10,23 @@ import {
 import MyCarousel from "../../components/Carousel";
 import Search from "../../components/Search";
 import Product from "../../components/Product";
-import { electronics } from "../../Data";
 import ItemTitle from "../../components/ItemTitle";
 import DemandProductList from "../../components/DemandProductList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux";
 import { Snackbar } from "react-native-paper";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.collections);
+
   const WIDTH = Dimensions.get("window").width;
   const numColumns = 3;
   const [visible, setVisible] = React.useState(false);
 
   const onDismissSnackBar = () => setVisible(false);
   const onToggleSnackBar = () => setVisible(!visible);
+
   const formatData = (dataList, numColumns) => {
     const totalRows = Math.floor(dataList.length / numColumns);
     let totalLasttRow = dataList.length - totalRows * numColumns;
@@ -59,7 +61,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <FlatList
-        data={formatData(electronics, numColumns)}
+        data={formatData(products, numColumns)}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItem}
         ListHeaderComponent={

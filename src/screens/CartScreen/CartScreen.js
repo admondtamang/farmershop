@@ -7,7 +7,7 @@ import CartItem from "./../../components/CartItem";
 import { List } from "react-native-paper";
 
 export default function CartScreen(props) {
-  const cartItem = useSelector((state) => state.cartItems);
+  const cartItem = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   return (
     <View>

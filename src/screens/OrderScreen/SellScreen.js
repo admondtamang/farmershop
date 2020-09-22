@@ -7,9 +7,12 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux";
+
 export default function SellScreen() {
   const [image, setImage] = useState(null);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     getPermissionAsync();
   }, []);
@@ -55,7 +58,7 @@ export default function SellScreen() {
       console.log(E);
     }
   };
-  const onSubmit = async (values) => {
+  const onSubmit = (values) => {
     try {
       // const reqBody = {
       //   query: `
@@ -74,8 +77,8 @@ export default function SellScreen() {
       //     },
       //   },
       // } = await axios.post("http://localhost:3000/graphql", reqBody);
-
-      console.log("values: ", values.name);
+      dispatch(addProduct(values));
+      console.log(values);
     } catch (e) {
       console.log(e);
     }
@@ -85,18 +88,19 @@ export default function SellScreen() {
     quantity: Yup.number().required(),
     weight: Yup.string().required(),
     description: Yup.string().required(),
-    picture: Yup.string(),
+    src: Yup.string(),
   });
   return (
     <ScrollView style={styles.container}>
       <Title style={styles.title}>Enter your product</Title>
       <Formik
         initialValues={{
-          name: "",
-          quantity: 0,
-          weight: "",
-          description: "",
-          picture: "",
+          name: "dskfl",
+          quantity: 10,
+          weight: "kg",
+          description: "klfds",
+          src: "https://imgur.com/aEsf5Gj.jpg",
+          type: "product",
         }}
         validationSchema={productSchema}
         onSubmit={onSubmit}
@@ -158,12 +162,12 @@ export default function SellScreen() {
               <TextInput
                 label="Add picture link..."
                 mode="outlined"
-                onChangeText={formik.handleChange("picture")}
-                value={formik.values.picture}
-                onBlur={formik.handleBlur("picture")}
+                onChangeText={formik.handleChange("src")}
+                value={formik.values.src}
+                onBlur={formik.handleBlur("src")}
               />
               <Text style={styles.error}>
-                {formik.touched.picture && formik.errors.picture}
+                {formik.touched.src && formik.errors.src}
               </Text>
             </View>
 
@@ -189,7 +193,7 @@ export default function SellScreen() {
 
             <Button
               mode="contained"
-              onPress={onSubmit}
+              onPress={formik.handleSubmit}
               style={{ marginBottom: 50 }}
             >
               Submit

@@ -4,7 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-const ShoppingCartIcon = ({ INITIAL_STATE }) => {
+const ShoppingCartIcon = ({ cart: { cart } }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -25,7 +25,7 @@ const ShoppingCartIcon = ({ INITIAL_STATE }) => {
           backgroundColor: "rgba(95,197,123,0.8)",
         }}
       >
-        <Text style={{ color: "white" }}>{INITIAL_STATE.cartItems.length}</Text>
+        <Text style={{ color: "white" }}>{cart.cartItems.length}</Text>
       </View>
       <FontAwesome
         name="shopping-basket"
@@ -38,7 +38,7 @@ const ShoppingCartIcon = ({ INITIAL_STATE }) => {
 
 const mapStateToProps = (state) => {
   return {
-    INITIAL_STATE: state,
+    cart: state,
   };
 };
 
