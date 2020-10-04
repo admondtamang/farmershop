@@ -2,9 +2,10 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  ScrollView,
   FlatList,
   Dimensions,
+  Text,
+  ScrollView,
 } from "react-native";
 
 import MyCarousel from "../../components/Carousel";
@@ -15,8 +16,14 @@ import DemandProductList from "../../components/DemandProductList";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux";
 import { Snackbar } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen({ navigation }) {
+  const [t, i18n] = useTranslation();
+
+  const i18 = (key) => {
+    return t(key);
+  };
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.collections);
 
@@ -27,7 +34,8 @@ export default function HomeScreen({ navigation }) {
   const onDismissSnackBar = () => setVisible(false);
   const onToggleSnackBar = () => setVisible(!visible);
 
-  const formatData = (dataList, numColumns) => {
+  const formatData = (data, numColumns) => {
+    const dataList = data.filter((data) => data.type == "product"); // filtered product data
     const totalRows = Math.floor(dataList.length / numColumns);
     let totalLasttRow = dataList.length - totalRows * numColumns;
     while (totalLasttRow !== 0 && totalLasttRow !== numColumns) {
@@ -47,6 +55,7 @@ export default function HomeScreen({ navigation }) {
     }
     return (
       <View style={styles.productContainer}>
+        {/* <Text>{i18("BottomTab.home")}</Text> */}
         <Product
           productHeight={WIDTH / numColumns}
           onToggleSnackBar={onToggleSnackBar}

@@ -10,9 +10,15 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux";
 
+import { Snackbar } from "react-native-paper";
 export default function SellScreen() {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
+
+  const [visible, setVisible] = React.useState(false);
+
+  const onDismissSnackBar = () => setVisible(false);
+  const onToggleSnackBar = () => setVisible(!visible);
   useEffect(() => {
     getPermissionAsync();
   }, []);
@@ -78,7 +84,7 @@ export default function SellScreen() {
       //   },
       // } = await axios.post("http://localhost:3000/graphql", reqBody);
       dispatch(addProduct(values));
-      console.log(values);
+      onToggleSnackBar();
     } catch (e) {
       console.log(e);
     }
@@ -91,118 +97,123 @@ export default function SellScreen() {
     src: Yup.string(),
   });
   return (
-    <ScrollView style={styles.container}>
-      <Title style={styles.title}>Enter your product</Title>
-      <Formik
-        initialValues={{
-          name: "dskfl",
-          quantity: 10,
-          weight: "kg",
-          description: "klfds",
-          src: "https://imgur.com/aEsf5Gj.jpg",
-          type: "product",
-        }}
-        validationSchema={productSchema}
-        onSubmit={onSubmit}
-      >
-        {(formik) => (
-          <>
-            <View>
-              <TextInput
-                label="Product name"
-                mode="outlined"
-                onChangeText={formik.handleChange("name")}
-                value={formik.values.name}
-                onBlur={formik.handleBlur("name")}
-              />
-              <Text style={styles.error}>
-                {formik.touched.name && formik.errors.name}
-              </Text>
-            </View>
-            <View>
-              <TextInput
-                label="Quantity"
-                mode="outlined"
-                onChangeText={formik.handleChange("quantity")}
-                value={formik.values.quantity}
-                onBlur={formik.handleBlur("quantity")}
-              />
-              <Text style={styles.error}>
-                {formik.touched.quantity && formik.errors.quantity}
-              </Text>
-            </View>
-            <View>
-              <TextInput
-                label="Weight (kg, gram ...)"
-                mode="outlined"
-                onChangeText={formik.handleChange("weight")}
-                value={formik.values.weight}
-                onBlur={formik.handleBlur("weight")}
-              />
-              <Text style={styles.error}>
-                {formik.touched.weight && formik.errors.weight}
-              </Text>
-            </View>
-
-            <View>
-              <TextInput
-                label="Description"
-                mode="outlined"
-                onChangeText={formik.handleChange("description")}
-                value={formik.values.description}
-                onBlur={formik.handleBlur("description")}
-                multiline
-              />
-              <Text style={styles.error}>
-                {formik.touched.description && formik.errors.description}
-              </Text>
-            </View>
-
-            <View>
-              <TextInput
-                label="Add picture link..."
-                mode="outlined"
-                onChangeText={formik.handleChange("src")}
-                value={formik.values.src}
-                onBlur={formik.handleBlur("src")}
-              />
-              <Text style={styles.error}>
-                {formik.touched.src && formik.errors.src}
-              </Text>
-            </View>
-
-            {image && (
-              <Surface>
-                <Image
-                  source={image}
-                  style={{
-                    width: 200,
-                    height: 200,
-                    flex: 1,
-                    justifyContent: "center",
-                    marginVertical: 20,
-                  }}
+    <>
+      <ScrollView style={styles.container}>
+        <Title style={styles.title}>Enter your product</Title>
+        <Formik
+          initialValues={{
+            name: "",
+            quantity: "",
+            weight: "",
+            description: "",
+            // src: "https://imgur.com/aEsf5Gj.jpg",
+            src: "",
+            type: "",
+          }}
+          validationSchema={productSchema}
+          onSubmit={onSubmit}
+        >
+          {(formik) => (
+            <>
+              <View>
+                <TextInput
+                  label="Product name"
+                  mode="outlined"
+                  onChangeText={formik.handleChange("name")}
+                  value={formik.values.name}
+                  onBlur={formik.handleBlur("name")}
                 />
-              </Surface>
-            )}
+                <Text style={styles.error}>
+                  {formik.touched.name && formik.errors.name}
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  label="Quantity"
+                  mode="outlined"
+                  onChangeText={formik.handleChange("quantity")}
+                  value={formik.values.quantity}
+                  onBlur={formik.handleBlur("quantity")}
+                />
+                <Text style={styles.error}>
+                  {formik.touched.quantity && formik.errors.quantity}
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  label="Weight (kg, gram ...)"
+                  mode="outlined"
+                  onChangeText={formik.handleChange("weight")}
+                  value={formik.values.weight}
+                  onBlur={formik.handleBlur("weight")}
+                />
+                <Text style={styles.error}>
+                  {formik.touched.weight && formik.errors.weight}
+                </Text>
+              </View>
 
-            {/* {image && (formik.values.image = image)} */}
-            <Button style={{ marginVertical: 10 }} onPress={_pickImage}>
-              Upload Photo
-            </Button>
+              <View>
+                <TextInput
+                  label="Description"
+                  mode="outlined"
+                  onChangeText={formik.handleChange("description")}
+                  value={formik.values.description}
+                  onBlur={formik.handleBlur("description")}
+                  multiline
+                />
+                <Text style={styles.error}>
+                  {formik.touched.description && formik.errors.description}
+                </Text>
+              </View>
 
-            <Button
-              mode="contained"
-              onPress={formik.handleSubmit}
-              style={{ marginBottom: 50 }}
-            >
-              Submit
-            </Button>
-            <pre>{JSON.stringify(formik, null, 2)}</pre>
-          </>
-        )}
-      </Formik>
-    </ScrollView>
+              <View>
+                <TextInput
+                  label="Add picture link..."
+                  mode="outlined"
+                  onChangeText={formik.handleChange("src")}
+                  value={formik.values.src}
+                  onBlur={formik.handleBlur("src")}
+                />
+                <Text style={styles.error}>
+                  {formik.touched.src && formik.errors.src}
+                </Text>
+              </View>
+
+              {image && (
+                <Surface>
+                  <Image
+                    source={image}
+                    style={{
+                      width: 200,
+                      height: 200,
+                      flex: 1,
+                      justifyContent: "center",
+                      marginVertical: 20,
+                    }}
+                  />
+                </Surface>
+              )}
+
+              {/* {image && (formik.values.image = image)} */}
+              <Button style={{ marginVertical: 10 }} onPress={_pickImage}>
+                Upload Photo
+              </Button>
+
+              <Button
+                mode="contained"
+                onPress={formik.handleSubmit}
+                style={{ marginBottom: 50 }}
+              >
+                Submit
+              </Button>
+            </>
+          )}
+        </Formik>
+      </ScrollView>
+      <Snackbar visible={visible} duration={3000} onDismiss={onDismissSnackBar}>
+        Product added sucessfully
+      </Snackbar>
+    </>
   );
 }
 const styles = StyleSheet.create({

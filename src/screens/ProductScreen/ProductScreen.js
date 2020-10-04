@@ -36,9 +36,7 @@ export default function ProductScreen({ route, navigation }) {
           />
         )}
         <View>
-          <Title style={{ fontWeight: "medium", fontSize: 23 }}>
-            {item.name}
-          </Title>
+          <Title style={{ fontSize: 23 }}>{item.name}</Title>
           <Paragraph>Description of Cabbage</Paragraph>
           <Text>Rs {item.price} per kg</Text>
           <Button

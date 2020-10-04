@@ -11,8 +11,16 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useTranslation } from "react-i18next";
+
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
+  const [t, i18n] = useTranslation();
+
+  const i18 = (key) => {
+    return t(key);
+  };
+
   return (
     <Tab.Navigator
       initialRouteName="Home"

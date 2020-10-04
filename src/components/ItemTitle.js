@@ -7,7 +7,7 @@ export default function ItemTitle({ name }) {
     <View
       style={{
         justifyContent: "space-between",
-        marginHorizontal: 20,
+        margin: 20,
         flexDirection: "row",
       }}
     >

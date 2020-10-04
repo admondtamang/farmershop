@@ -1,4 +1,4 @@
-reexport const products = [
+export const products = [
   {
     id: 1,
     name: "Spinash",
@@ -6,6 +6,7 @@ reexport const products = [
     price: 49.99,
     src: "https://imgur.com/aEsf5Gj.jpg",
     type: "product",
+    quantity: 40,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ reexport const products = [
     price: 199,
     src: "https://imgur.com/tH30Ekv.jpg",
     type: "demand",
+    quantity: 40,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ reexport const products = [
     price: 300,
     src: "https://imgur.com/LDl9Aki.jpg",
     type: "product",
+    quantity: 40,
   },
   {
     id: 4,
@@ -29,20 +32,23 @@ reexport const products = [
     price: 300,
     src: "https://imgur.com/aEsf5Gj.jpg",
     type: "product",
+    quantity: 40,
   },
-  // {
-  //   id: 5,
-  //   name: "Spinash",
-  //   price: 49.99,
-  //   src: "https://imgur.com/aEsf5Gj.jpg",
-  //   type: "product",
-  // },
+  {
+    id: 5,
+    name: "Spinash",
+    price: 49.99,
+    src: "https://imgur.com/aEsf5Gj.jpg",
+    quantity: 40,
+    type: "product",
+  },
   {
     id: 6,
-    name: "Squash",
-    price: 199,
-    src: "https://imgur.com/tH30Ekv.jpg",
-    type: "demand",
+    name: "Spinash",
+    price: 49.99,
+    src: "https://imgur.com/aEsf5Gj.jpg",
+    quantity: 40,
+    type: "product",
   },
   {
     id: 7,
@@ -50,6 +56,7 @@ reexport const products = [
     price: 300,
     src: "https://imgur.com/LDl9Aki.jpg",
     type: "product",
+    quantity: 40,
   },
   {
     id: 4,
@@ -57,5 +64,6 @@ reexport const products = [
     price: 300,
     src: "https://imgur.com/aEsf5Gj.jpg",
     type: "demand",
+    quantity: 40,
   },
 ];

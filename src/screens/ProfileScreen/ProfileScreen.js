@@ -12,10 +12,18 @@ import axios from "axios";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
+import i18next from "i18next";
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const [userData, setUserData] = useState({});
+  const { t } = useTranslation();
+
+  function handleClick(lang) {
+    i18next.changeLanguage(lang);
+  }
+
   useEffect(() => {
     const profile = async () => {
       try {
@@ -83,9 +91,7 @@ const ProfileScreen = () => {
             >
               {userName}
             </Title>
-            <Caption style={styles.caption}>
-              @{userName}
-            </Caption>
+            <Caption style={styles.caption}>@{userName}</Caption>
           </View>
         </View>
       </View>
@@ -103,6 +109,13 @@ const ProfileScreen = () => {
           <Icon name="email" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
         </View>
+        <Button
+          mode="contained"
+          style={styles.section}
+          onPress={() => handleClick("np")}
+        >
+          Change Language
+        </Button>
         <Button mode="contained" style={styles.section} onPress={logout}>
           Logout
         </Button>

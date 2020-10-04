@@ -90,7 +90,7 @@ export default MyCarousel;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 20,
+    marginTop: 20,
   },
   item: {
     width: screenWidth - 60,
