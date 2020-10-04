@@ -55,7 +55,6 @@ export default function HomeScreen({ navigation }) {
     }
     return (
       <View style={styles.productContainer}>
-        {/* <Text>{i18("BottomTab.home")}</Text> */}
         <Product
           productHeight={WIDTH / numColumns}
           onToggleSnackBar={onToggleSnackBar}

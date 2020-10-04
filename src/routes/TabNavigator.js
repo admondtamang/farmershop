@@ -33,7 +33,7 @@ const TabNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: `${i18("BottomTab.home")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" color={color} size={size} />
           ),
@@ -43,7 +43,7 @@ const TabNavigator = () => {
         name="Order"
         component={OrderScreen}
         options={{
-          tabBarLabel: "Order",
+          tabBarLabel: `${i18("BottomTab.order")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="food" size={size} color={color} />
           ),
@@ -53,7 +53,7 @@ const TabNavigator = () => {
         name="Price"
         component={PriceScreen}
         options={{
-          tabBarLabel: "Price",
+          tabBarLabel: `${i18("BottomTab.price")}`,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="money" color={color} size={size} />
           ),
@@ -63,7 +63,7 @@ const TabNavigator = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: `${i18("BottomTab.profile")}`,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="user" color={color} size={size} />
           ),

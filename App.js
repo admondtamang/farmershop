@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import store from "./src/redux/store";
 import { Text } from "react-native";
-// import "./i18next";
+import "./i18next";
 export default function App() {
   const theme = {
     ...DefaultTheme,

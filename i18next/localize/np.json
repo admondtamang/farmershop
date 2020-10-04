@@ -13,14 +13,17 @@
     "title": "Accueil"
   },
 
-  "Drawer": {
-    "changeLanguage": "Changer de langue"
+  "profile": {
+    "logout": "बाहिर निस्कनु",
+    "changeLanguage": "भाषा परिवर्तन गर्नुहोस्"
   },
 
   "BottomTab": {
-    "search": "Chercher",
-    "home": "Accueil",
-    "profile": "Profil"
+    "search": "खोजी",
+    "home": "घर",
+    "profile": "प्रोफाइल",
+    "price": "मूल्य",
+    "order": "अर्डर"
   },
 
   "Component": {

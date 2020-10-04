@@ -18,8 +18,11 @@ import i18next from "i18next";
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const [userData, setUserData] = useState({});
-  const { t } = useTranslation();
+  const [t, i18n] = useTranslation();
 
+  const i18 = (key) => {
+    return t(key);
+  };
   function handleClick(lang) {
     i18next.changeLanguage(lang);
   }
@@ -114,10 +117,10 @@ const ProfileScreen = () => {
           style={styles.section}
           onPress={() => handleClick("np")}
         >
-          Change Language
+          {i18("profile.changeLanguage")}
         </Button>
         <Button mode="contained" style={styles.section} onPress={logout}>
-          Logout
+          {i18("profile.logout")}
         </Button>
         {/* <Button title="Logout" onPress={logout} /> */}
       </View>

@@ -14,13 +14,15 @@
   },
 
   "Drawer": {
-    "changeLanguage": "Change Language"
+    "changeLanguage": "Change Language",
+    "logout": "logout"
   },
 
   "BottomTab": {
     "search": "Search",
     "home": "Home",
-    "profile": "Profile"
+    "profile": "Profile",
+    "price": "price"
   },
 
   "Component": {
