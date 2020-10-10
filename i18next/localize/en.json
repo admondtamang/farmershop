@@ -20,9 +20,10 @@
 
   "BottomTab": {
     "search": "Search",
+    "order": "Order",
     "home": "Home",
     "profile": "Profile",
-    "price": "price"
+    "price": "Price"
   },
 
   "Component": {
