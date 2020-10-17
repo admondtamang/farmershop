@@ -2,6 +2,7 @@
 
 ## Technology Used
 - React Native
+- GraphQL API
 - React redux
 - material ui
 - i18next
